@@ -135,6 +135,9 @@ class Item_Postgallery_PB extends Item_PB {
 	public function get_basic_feed( $settings ){
 		
 		$p_types = get_post_types();
+		unset( $p_types['attachment'] );
+ 		unset( $p_types['revision'] );
+ 		unset( $p_types['nav_menu_item'] );
 		
 		$post_types = array( 'any' => 'Any' );
 		

@@ -155,6 +155,9 @@ class Forms_PB{
 	public static function get_post_types( $add_any = true ){
 		
 		$p_types = get_post_types();
+		unset( $p_types['attachment'] );
+ 		unset( $p_types['revision'] );
+ 		unset( $p_types['nav_menu_item'] );
 		
 		if ( $add_any ){
 		

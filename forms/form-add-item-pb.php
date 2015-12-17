@@ -99,13 +99,14 @@ class Form_Add_Item_PB extends Form_PB {
 		
 		$id = 'sh-' . rand(0,1000000) . '-';
 		
-		$html = '<div class="cpb-form-slider cycle-slideshow" 
+		$html = '<div class="cpb-form-slider cycle-slideshow"
+			data-cycle-log="false" 
 			data-cycle-fx="scrollHorz" 
 			data-cycle-timeout="0" 
 			data-cycle-slides="> div"
 			data-cycle-pager="#' . $id . 'cpb-add-items-pager"
 			data-cycle-prev="#' . $id . 'cpb-add-items-prev"
-        	data-cycle-next="#' . $id . 'cpb-add-items-next">';
+			data-cycle-next="#' . $id . 'cpb-add-items-next">';
 		
 			$html .= '<div class="cpb-form-slide active">';
 		

@@ -107,12 +107,13 @@ class Item_Section_PB extends Item_PB {
 		$html .= '</header>';
 		
 		$html .= '<nav class="cycle-slideshow" 
+		  data-cycle-log="false" 
 			data-cycle-fx="scrollHorz" 
 			data-cycle-timeout="0" 
 			data-cycle-slides="> div"
 			data-cycle-prev="#cpb-pager-prev-' . $sid . '"
 			data-cycle-pager="#cpb-pager-' . $sid . '"
-        	data-cycle-next="#cpb-pager-next-' . $sid . '">';
+			data-cycle-next="#cpb-pager-next-' . $sid . '">';
 			
 			$html .= '<div class="cpb-slide">';
 			

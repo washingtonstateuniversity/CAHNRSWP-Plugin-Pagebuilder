@@ -1542,4 +1542,13 @@ nav.cycle-slideshow .cpb-slide:first-child {
 	border-right: 8px solid #0074a2;
 }
 
-
+/* Manual item */
+.cpb-manual-feature {
+	background: #e5e5e5;
+	border: 1px solid #999;
+	margin: 0 1rem 1rem;
+	padding: 1rem;
+}
+.cpb-manual-feature .cwp-add-media-wrap {
+	padding-bottom: 0.75rem;
+}

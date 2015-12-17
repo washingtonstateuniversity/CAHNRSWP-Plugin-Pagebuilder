@@ -22,6 +22,8 @@ jQuery(document).ready(function(){
 		s.pb.on( 'click' , '.cpb-tab' , function( event ) { s.forms.select_tab( jQuery( this ) , event )});
 		
 		s.pb.on( 'click' , '.cpb-accordion' , function( event ) { s.forms.select_accordion( jQuery( this ) , event )});
+
+		s.pb.on( 'click', '.cpb-add-repeatable', function( event ) { s.forms.add_repeatable( jQuery( this ), event ) } );
 		
 		jQuery('body').on('click','.close-form-action, #cpb-lb-bg', function( event ){ event.preventDefault(); s.forms.close_form(); });
 		
@@ -441,14 +443,34 @@ jQuery(document).ready(function(){
 			obj.next('.cpb-accordion-content').slideDown('fast').addClass('selected').siblings('.cpb-accordion-content').slideUp('fast').removeClass('selected');
 			
 		} // end select tab
-		
+
+		f.add_repeatable = function( obj, event ) {
+
+			event.preventDefault();
+
+			var added = obj.siblings( '.cpb-repeatable-item' ).first().clone(),
+					attrs = 'name,id,for';
+
+			added.find( 'input' ).val( '' );
+			obj.before( added );
+			attrs = attrs.split( ',' );
+
+			obj.siblings( '.cpb-repeatable-item' ).each(function( index ) {
+				jQuery(this).find( 'input' ).each(function() {
+					//console.log(jQuery(this));
+					for ( var i = 0; i < attrs.length; i++ ) {
+						if ( undefined != jQuery(this).attr( attrs[i] ) ) {
+							jQuery(this).attr( attrs[i], jQuery(this).attr( attrs[i] ).replace( '0', index ) );
+						}
+					}
+				});
+			});
+
+		}
+
 		
 	} // end cpb_forms
-	
-	
-	
-	
-	
+
 	
 	var cpb = new cpb_init();
 	

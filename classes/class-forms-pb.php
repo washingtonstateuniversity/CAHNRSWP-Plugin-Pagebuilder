@@ -47,7 +47,7 @@ class Forms_PB{
 		$html = '<input type="checkbox" id="' . $id . '" name="' . $name . '" value="' . $value . '" ' . checked( $value, $current_value, false )  . ' />';
 
 		if ( $label ) $html .= '<label for="' . $id . '" class="' . $active . '">' . $label . '</label>' ;
-		
+
 		if ( $text ) $html .= '<br /><span class=".cpb-helper-text">' . $text . '</span>' ;
 
 		return Forms_PB::wrap_field( $html, $class, 'checkbox' );
@@ -81,8 +81,8 @@ class Forms_PB{
 		return Forms_PB::wrap_field( $html, $class );
 
 	} // end select
-	
-	
+
+
 
 	public static function insert_media( $base_name, $settings, $class = '' ) {
 
@@ -103,76 +103,108 @@ class Forms_PB{
 		return $html;
 
 	} // end insert_media
-	
+
 	public static function local_feed( $base_name , $settings ){
-		
+
 		$tax = get_taxonomies( array( 'public' => true ) );
-		
+
 		$taxonomies = array( '0' => 'NA' );
-		
+
 		foreach( $tax as $name => $id ){
-			
+
 			if ( $name == 'post_tag' ) $name = 'Tag';
-			
+
 			$name = str_replace( '_' , ' ' , $name );
-			
+
 			$name = ucwords( $name );
-			
+
 			$taxonomies[ $id ] = $name;
-			
+
 		} // end foreach
-		
+
 		$html = Forms_PB::select_field( $base_name . '[post_type]', $settings['post_type'] , Forms_PB::get_post_types() , 'Content Type:' );
-		
+
 		$html .= Forms_PB::select_field( $base_name . '[taxonomy]', $settings['taxonomy'] , $taxonomies , 'Feed By:' );
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[terms]', $settings['terms'] , 'Terms (Name)' );
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[posts_per_page]', $settings['posts_per_page'] , 'Count:' , 'cpb-small-field' );
-		
+
 		$html .= Forms_PB::checkbox_field( $base_name . '[term_operator]', 'AND', $settings['term_operator'], 'Require All Terms' );
-		
+
 		return $html;
-		
+
 	}
-	
+
 	public static function remote_feed( $base_name , $settings ){
-		
+
 		$html = Forms_PB::text_field( $base_name . '[remote_url]', $settings['remote_url'] , 'Site URL (Homepage)' , 'cpb-field-one-column' );
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[remote_post_type]', $settings['remote_post_type'] , 'Post Type (slug)');
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[remote_taxonomy]', $settings['remote_taxonomy'] , 'Feed By (slug)');
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[remote_terms]', $settings['remote_terms'] , 'Terms (Name)');
-		
+
 		$html .= Forms_PB::text_field( $base_name . '[remote_posts_per_page]', $settings['remote_posts_per_page'] , 'Count' , 'cpb-small-field' );
-		
+
 		return $html;
-		
+
 	}
-	
+
+	/**
+	 * Manual feature.
+	 *
+	 * @param $base_name
+	 * @param $settings  Shortcode attributes.
+	 *
+	 * @return string
+	 */
+	public static function manual_feature( $base_name, $settings ) {
+
+		$html = '<div>';
+
+		$html .= '<div class="cpb-manual-feature cpb-repeatable-item">';
+
+		$html .= Forms_PB::insert_media( $base_name . '[items][0][img]', $settings['items'][0]['img'] );
+
+		$html .= Forms_PB::text_field( $base_name . '[items][0][link]', $settings['items'][0]['link'], 'Link to' );
+
+		$html .= Forms_PB::text_field( $base_name . '[items][0][title]', $settings['items'][0]['title'], 'Title' );
+
+		$html .= Forms_PB::text_field( $base_name . '[items][0][excerpt]', $settings['items'][0]['excerpt'], 'Excerpt (optional)');
+
+		$html .= '</div>';
+
+		$html .= '<p class="cpb-add-repeatable"><a href="#">+ Add another feature</a></p>';
+
+		$html .= '</div>';
+
+		return $html;
+
+	}
+
 	public static function get_post_types( $add_any = true ){
-		
+
 		$p_types = get_post_types();
 		unset( $p_types['attachment'] );
  		unset( $p_types['revision'] );
  		unset( $p_types['nav_menu_item'] );
-		
+
 		if ( $add_any ){
-		
-			$post_types = array( 'any' => 'Any' );
-		
+
+			$post_types = array( '' => 'Any' );
+
 		} // end if
-		
+
 		foreach( $p_types as $type ){
-			
+
 			$post_types[ $type ] = ucfirst( $type );
-			
+
 		} // end foreach
-		
+
 		return $post_types;
-		
+
 	} // end get_post_types
 
 	public function button( $title, $action, $class = 'cwp-standard-button' ) {
@@ -237,10 +269,10 @@ class Forms_PB{
 		return $html;
 
 	} // end get_item_form
-	
-	
+
+
 	public static function tabbed_form( $forms, $action = 'close-form-action', $action_label = 'Done' ){
-		
+
 		$tabs = '';
 
 		$sections = '';
@@ -268,9 +300,9 @@ class Forms_PB{
 		$html .= '</footer>';
 
 		return $html;
-		
+
 	} // end tabbed_form
-	
+
 
 	public static function get_sub_form( $form_array, $name = '', $value = 'na' ) {
 
@@ -309,29 +341,29 @@ class Forms_PB{
 		return $html;
 
 	}
-	
+
 	public static function get_subform( $subform ){
-		
+
 		$id = 'subform_' . rand( 0 ,1000000 );
-		
+
 		$active = ( $subform['val'] == $subform['current_val'] ) ? ' selected' : '';
-		
+
 		$html = '<div class="cbp-form-subsection' . $active . '">';
-		
+
 			$html .= '<header>';
-			
+
             	$html .= '<label for="' . $id . '">' .$subform['title'] . '<br /><span class="cbp-subsection-helper-text">' .$subform['summary'] . '</span></label>';
-            	
+
 				$html .= '<input type="radio" name="' . $subform['field_name'] . '" id="' . $id . '" value="' . $subform['val'] . '" ' . checked( $subform['val'] , $subform['current_val'] , false )  . ' />';
-				
+
             $html .= '</header>';
-			
+
 			$html .= '<div class="cpb-form-fields">' . $subform['form'] . '</div>';
-		
+
 		$html .= '</div>';
-		
+
 		return $html;
-		
+
 	}
 
 	public static function wrap_item_form( $id, $form, $width = 'small', $class = '' ) {
@@ -443,9 +475,9 @@ class Forms_PB{
 		return $values;
 
 	}
-	
+
 	public static function get_header_tags(){
-		
+
 		$tags = array(
 			'h2' => 'H2',
 			'h3' => 'H3',
@@ -453,9 +485,9 @@ class Forms_PB{
 			'h5' => 'H5',
 			'strong' => 'Bold',
 		);
-		
+
 		return $tags;
-		
+
 	}
 
 }

@@ -452,6 +452,9 @@ jQuery(document).ready(function(){
 					attrs = 'name,id,for';
 
 			added.find( 'input' ).val( '' );
+			/* Extra stuff for images */
+			added.find( '.cpb-add-media-img' ).empty();
+			added.find( '.add-media-action' ).text( 'Add image' );
 			obj.before( added );
 			attrs = attrs.split( ',' );
 
@@ -460,7 +463,7 @@ jQuery(document).ready(function(){
 					//console.log(jQuery(this));
 					for ( var i = 0; i < attrs.length; i++ ) {
 						if ( undefined != jQuery(this).attr( attrs[i] ) ) {
-							jQuery(this).attr( attrs[i], jQuery(this).attr( attrs[i] ).replace( '0', index ) );
+							jQuery(this).attr( attrs[i], jQuery(this).attr( attrs[i] ).replace( '[0]', '['+index+']' ) );
 						}
 					}
 				});

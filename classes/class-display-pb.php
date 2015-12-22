@@ -41,8 +41,6 @@ class Display_PB {
 	
 	public function get_list( $items ){
 		
-		
-		
 		$id = 'cpb-accordions-' . rand( 0 , 10000000 );
 		
 		$html = '<ul id="' . $id . '" class="cahnrs-accordion-set ' . $this->settings['csshook'] . '">';

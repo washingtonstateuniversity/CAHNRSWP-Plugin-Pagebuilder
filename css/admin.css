@@ -1546,7 +1546,7 @@ nav.cycle-slideshow .cpb-slide:first-child {
 .cpb-manual-feature {
 	background: #e5e5e5;
 	border: 1px solid #999;
-	margin: 0 1rem 1rem;
+	margin: 0 1rem 0.5rem;
 	padding: 1rem;
 }
 .cpb-manual-feature .cwp-add-media-wrap {

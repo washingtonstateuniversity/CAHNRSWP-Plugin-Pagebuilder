@@ -164,17 +164,58 @@ class Forms_PB{
 
 		$html = '<div>';
 
-		$html .= '<div class="cpb-manual-feature cpb-repeatable-item">';
+		if ( ! empty( $settings['items'] )  ) {
 
-		$html .= Forms_PB::insert_media( $base_name . '[items][0][img]', $settings['items'][0]['img'] );
+			$items = json_decode( $settings['items'], true );
 
-		$html .= Forms_PB::text_field( $base_name . '[items][0][link]', $settings['items'][0]['link'], 'Link to' );
+			foreach ( $items as $index => $item ) {
 
-		$html .= Forms_PB::text_field( $base_name . '[items][0][title]', $settings['items'][0]['title'], 'Title' );
+				$html .= '<div class="cpb-manual-feature cpb-repeatable-item">';
 
-		$html .= Forms_PB::text_field( $base_name . '[items][0][excerpt]', $settings['items'][0]['excerpt'], 'Excerpt (optional)');
+				//$html .= Forms_PB::insert_media( $base_name . '[items][' . $index . '][img]', '' );
+				
+				$html .= '<div class="cwp-add-media-wrap">';
 
-		$html .= '</div>';
+				if ( ! empty( $item['img']['img_src'] ) ) {
+					$html .= '<div class="cpb-add-media-img"><img src="' . $item['img']['img_src'] . '" /></div>';
+					$button_text = 'Remove image';
+				} else {
+					$button_text = 'Add image';
+				}
+
+				$html .= Forms_PB::button( $button_text, 'add-media-action' );
+	
+				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img_src]', $item['img']['img_src'], 'cpb-add-media-src' );
+	
+				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img_id]', $item['img']['img_id'], 'cpb-add-media-id' );
+	
+				$html .= '</div>';
+
+				$html .= Forms_PB::text_field( $base_name . '[items][' . $index . '][link]', $item['link'], 'Link to' );
+
+				$html .= Forms_PB::text_field( $base_name . '[items][' . $index . '][title]', $item['title'], 'Title' );
+
+				$html .= Forms_PB::text_field( $base_name . '[items][' . $index . '][excerpt]', $item['excerpt'], 'Excerpt (optional)' );
+
+				$html .= '</div>';
+
+			}
+
+		} else {
+
+			$html .= '<div class="cpb-manual-feature cpb-repeatable-item">';
+
+			$html .= Forms_PB::insert_media( $base_name . '[items][0][img]', $settings['items'][0]['img'] );
+
+			$html .= Forms_PB::text_field( $base_name . '[items][0][link]', $settings['items'][0]['link'], 'Link to' );
+
+			$html .= Forms_PB::text_field( $base_name . '[items][0][title]', $settings['items'][0]['title'], 'Title' );
+
+			$html .= Forms_PB::text_field( $base_name . '[items][0][excerpt]', $settings['items'][0]['excerpt'], 'Excerpt (optional)');
+
+			$html .= '</div>';
+
+		}
 
 		$html .= '<p class="cpb-add-repeatable"><a href="#">+ Add another feature</a></p>';
 

@@ -185,9 +185,9 @@ class Forms_PB{
 
 				$html .= Forms_PB::button( $button_text, 'add-media-action' );
 	
-				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img_src]', $item['img']['img_src'], 'cpb-add-media-src' );
+				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img][img_src]', $item['img']['img_src'], 'cpb-add-media-src' );
 	
-				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img_id]', $item['img']['img_id'], 'cpb-add-media-id' );
+				$html .= Forms_PB::hidden_field( $base_name . '[items][' . $index . '][img][img_id]', $item['img']['img_id'], 'cpb-add-media-id' );
 	
 				$html .= '</div>';
 

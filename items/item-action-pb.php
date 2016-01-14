@@ -19,6 +19,7 @@ class Item_Action_PB extends Item_PB {
 			
 			$html .= '<style type="text/css" scoped>
 				.cpb-action-button-item {display: block; background: #981e32; color: #fff; padding: 0.5rem 1rem; border-radius: 2px; margin-bottom: 0.5rem;}
+				.cpb-action-button-item:hover {background: #c60c30; color: #fff;}
 				</style>';
 
 		} // end if

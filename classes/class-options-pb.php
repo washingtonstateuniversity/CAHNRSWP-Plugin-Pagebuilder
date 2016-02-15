@@ -155,7 +155,7 @@ class Options_PB {
 								$pb_content .= '[column][textblock]' . "\n\n" . $pieces[4] . "\n\n" . '[/textblock][/column]';
 							}
 							// Close section and row.
-							$pb_content .= '[/row][/section]';
+							$pb_content .= '[/row]';
 
 							// Update post with short coded content.
 							wp_update_post( array(
@@ -165,7 +165,7 @@ class Options_PB {
 
 							//update_post_meta( $post->ID, '_cpb_excerpt', $pieces[0] );
 							// Set pagebuilder as on (not sure if we want to do this unless PB is enabled for posts). 
-							add_post_meta( $post->ID, '_cpb_pagebuilder', 1 );
+							update_post_meta( $post->ID, '_cpb_pagebuilder', 1 );
 
 							// Delete the meta data.
 							delete_post_meta( $post->ID, '_layout' );
@@ -293,8 +293,8 @@ class Options_PB {
 							// Set Page Builder excerpt.
 							update_post_meta( $page->ID, '_cpb_excerpt', $pieces[0] );
 
-							// Set Page Builder as on (doesn't seem to work).
-							add_post_meta( $post->ID, '_cpb_pagebuilder', 1 );
+							// Set Page Builder as on.
+							update_post_meta( $post->ID, '_cpb_pagebuilder', 1 );
 
 							// Delete the meta.
 							delete_post_meta( $page->ID, '_layout' );

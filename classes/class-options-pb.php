@@ -434,7 +434,7 @@ class Options_PB {
 			if ( 'cTypePosts' == substr( $content_type, 0, 10 ) ) {
 				$count = $dynamic_meta[$content_type.'_number'] ? $dynamic_meta[$content_type.'_number'] : 5;
 				$category = $dynamic_meta[$content_type.'_category'] ? get_term_by( 'id', $dynamic_meta[$content_type.'_category'], 'category') : '';
-				$content .= '[feed feed_type="basic" post_type="post" taxonomy="category" tax_terms="' . $category->name . '" display="list" posts_per_page="' . $count . '"][/feed]';
+				$content .= '[list source="feed" post_type="post" taxonomy="category" terms="' . $category->name . '" posts_per_page="' . $count . '"][/list]';
 			}
 
 			// Employees
